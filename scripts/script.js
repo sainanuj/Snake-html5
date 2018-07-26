@@ -9,6 +9,7 @@ class Snake {
         this.STARTY = 200;
         this.BLOCKSIZE = 7;
         this.snakePoints = new Array();
+        this.score = 0;
         for (let i = 0; i < this.STARTSIZE; i++) {
             this.snakePoints.push(new Point(this.STARTX - (i*this.BLOCKSIZE), this.STARTY));
         }
@@ -19,6 +20,8 @@ class Snake {
         for (let i = 0; i < this.snakePoints.length; i++) {
             ctx.fillRect(this.snakePoints[i].getx(), this.snakePoints[i].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
         }
+        ctx.font = "30px Consolas";
+        ctx.fillText(this.score, canvas.width - 100, 100);
     }
 
     update() {
@@ -60,6 +63,14 @@ class Snake {
         }
     }
 
+    reset() {
+        this.score = 0;
+        this.snakePoints = [];
+        for (let i = 0; i < this.STARTSIZE; i++) {
+            this.snakePoints.push(new Point(this.STARTX - (i*this.BLOCKSIZE), this.STARTY));
+        }
+    }
+
     // The snake stops moving if it bites itself.
     suicide() {
         var headx = this.snakePoints[0].getx() + (this.BLOCKSIZE / 2);
@@ -79,7 +90,7 @@ class Food {
     constructor() {
         this.x = Math.random() * (canvas.width-100) + 70;
         this.y = Math.random() * (canvas.height-100) + 70;
-        this.BLOCKSIZE = 10;
+        this.BLOCKSIZE = 8;
     }
 
     draw(ctx) {
@@ -90,6 +101,11 @@ class Food {
     update() {
         this.x = Math.random() * (canvas.width-100) + 50;
         this.y = Math.random() * (canvas.height-100) + 50;
+    }
+
+    reset() {
+        this.x = Math.random() * (canvas.width-100) + 70;
+        this.y = Math.random() * (canvas.height-100) + 70;
     }
 }
 
@@ -112,20 +128,19 @@ class Point {
     }
 }
 
+let canvas = document.getElementById("myCanvas");
+let context = canvas.getContext("2d");
+let snake = new Snake();
+let food = new Food();
+let pause = false;
 
-
-
-
-
-
-
-var dead = new Audio();
-var eat = new Audio();
-var up = new Audio();
-var right = new Audio();
-var left = new Audio();
-var down = new Audio();
-var key_press = new Audio();
+let dead = new Audio();
+let eat = new Audio();
+let up = new Audio();
+let right = new Audio();
+let left = new Audio();
+let down = new Audio();
+let key_press = new Audio();
 
 dead.src = "sounds/game_over.wav";
 eat.src = "sounds/eat.mp3";
@@ -140,26 +155,23 @@ function stopAudio(audio) {
     audio.currentTime = 0;
 }
 
-var canvas = document.getElementById("myCanvas");
-var context = canvas.getContext("2d");
-var snake = new Snake();
-var food = new Food();
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 document.addEventListener("keydown", events, false);
 
-let pause = false;
-
 function events(e) {
     switch (e.keyCode) {
         case 13: // Enter key
-            if (!snake.isMoving) {
+            if (!snake.isMoving && !pause) {
                 stopAudio(dead);
                 key_press.play();
                 snake.dx = 1;
                 snake.dy = 0;
                 snake.isMoving = true;
+                snake.reset();
+                food.reset();
             }
             break;
         case 37: // Left arrow key
@@ -205,7 +217,6 @@ function events(e) {
     }
 }
 
-
 window.onresize = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -216,6 +227,12 @@ function draw() {
     context.clearRect(0, 0, canvas.width, canvas.height);
     snake.draw(context);
     food.draw(context);
+
+    if (pause) {
+        context.fillStyle = "white";
+        context.font = "40px Consolas";
+        context.fillText("PAUSED", (canvas.width/2)-59, (canvas.height/2)-10);
+    }
 }
 
 function foodCollision() {
@@ -235,20 +252,21 @@ function update() {
     if (foodCollision()) {
         eat.play();
         food.update();
+        snake.score++;
     }
 }
 
 function run() {
-    try {
-        dead.play();
-        dead.loop = true;
-    } catch (error) {
-        console.log("Error: " + error);
-    }
+    // try {
+    //     dead.play();
+    //     dead.loop = true;
+    // } catch (error) {
+    //     console.log("Error: " + error);
+    // }
     setInterval(() => {
         draw();
         update();
-    }, 33);
+    }, 40);
 }
 
 run();
