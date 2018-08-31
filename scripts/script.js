@@ -16,8 +16,10 @@ class Snake {
     }
 
     draw(ctx) {
+        ctx.fillStyle = "green";
+        ctx.fillRect(this.snakePoints[0].getx(), this.snakePoints[0].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
         ctx.fillStyle = "pink";
-        for (let i = 0; i < this.snakePoints.length; i++) {
+        for (let i = 1; i < this.snakePoints.length; i++) {
             ctx.fillRect(this.snakePoints[i].getx(), this.snakePoints[i].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
         }
         ctx.font = "20px Consolas";
@@ -94,7 +96,7 @@ class Food {
     }
 
     draw(ctx) {
-        ctx.fillStyle = "white";
+        ctx.fillStyle = "red";
         ctx.fillRect(this.x, this.y, this.BLOCKSIZE, this.BLOCKSIZE);
     }
 
@@ -266,7 +268,7 @@ function run() {
     setInterval(() => {
         draw();
         update();
-    }, 70);
+    }, 80);
 }
 
 
