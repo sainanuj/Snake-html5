@@ -4,10 +4,10 @@ class Snake {
         this.elongate = false;
         this.dx = 0;
         this.dy = 0;
-        this.STARTSIZE = 7;
+        this.STARTSIZE = 4;
         this.STARTX = 200;
         this.STARTY = 200;
-        this.BLOCKSIZE = 7;
+        this.BLOCKSIZE = 9;
         this.snakePoints = new Array();
         this.score = 0;
         for (let i = 0; i < this.STARTSIZE; i++) {
@@ -20,8 +20,8 @@ class Snake {
         for (let i = 0; i < this.snakePoints.length; i++) {
             ctx.fillRect(this.snakePoints[i].getx(), this.snakePoints[i].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
         }
-        ctx.font = "30px Consolas";
-        ctx.fillText(this.score, canvas.width - 100, 100);
+        ctx.font = "20px Consolas";
+        ctx.fillText(this.score, canvas.width - 50, 50);
     }
 
     update() {
@@ -90,7 +90,7 @@ class Food {
     constructor() {
         this.x = Math.random() * (canvas.width-100) + 70;
         this.y = Math.random() * (canvas.height-100) + 70;
-        this.BLOCKSIZE = 8;
+        this.BLOCKSIZE = 10;
     }
 
     draw(ctx) {
@@ -266,7 +266,7 @@ function run() {
     setInterval(() => {
         draw();
         update();
-    }, 40);
+    }, 70);
 }
 
 
