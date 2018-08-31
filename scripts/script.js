@@ -269,4 +269,72 @@ function run() {
     }, 40);
 }
 
+
+
+
+
+
+
+// Code for recognizing gestures to steer the snake.
+
+let x1, y1, x2, y2, deltaX, deltaY;
+
+document.addEventListener("touchstart", (e) => {
+    x1 = e.touches[0].clientX;
+    y1 = e.touches[0].clientY;
+});
+
+document.addEventListener("touchend", (e) => {
+    x2 = e.changedTouches[0].clientX;
+    y2 = e.changedTouches[0].clientY;
+    deltaX = Math.abs(x2 - x1);
+    deltaY = Math.abs(y2 - y1);
+
+    if (deltaX > 3 || deltaY > 3) {
+        if (!snake.isMoving) {
+            key_press.play();
+            snake.reset();
+            food.reset();
+            snake.isMoving = true;
+        }
+    }
+
+    if (deltaX > deltaY) {
+        if (x2 > x1) {
+            if (snake.dx != -1 && snake.isMoving) {
+                right.play();
+                snake.dy = 0;
+                snake.dx = 1;
+            }
+        } else if (x2 < x1) {
+            if (snake.dx != 1 && snake.isMoving) {
+                left.play();
+                snake.dy = 0;
+                snake.dx = -1;
+            }
+        }
+    }
+
+    if (deltaX < deltaY) {
+        if (y2 > y1) {
+            if (snake.dy != -1 && snake.isMoving) {
+                down.play();
+                snake.dx = 0;
+                snake.dy = 1;
+            }
+        } else if (y2 < y1) {
+            if (snake.dy != 1 && snake.isMoving) {
+                up.play();
+                snake.dx = 0;
+                snake.dy = -1;
+            }
+        }
+    }
+});
+
+
+
+
+
+
 run();
