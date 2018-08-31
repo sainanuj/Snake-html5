@@ -292,6 +292,7 @@ document.addEventListener("touchend", (e) => {
 
     if (deltaX > 3 || deltaY > 3) {
         if (!snake.isMoving) {
+            stopAudio(dead);
             key_press.play();
             snake.reset();
             food.reset();
