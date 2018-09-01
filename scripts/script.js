@@ -4,7 +4,7 @@ class Snake {
         this.elongate = false;
         this.dx = 0;
         this.dy = 0;
-        this.STARTSIZE = 4;
+        this.STARTSIZE = 2;
         this.STARTX = 200;
         this.STARTY = 200;
         this.BLOCKSIZE = 13;
