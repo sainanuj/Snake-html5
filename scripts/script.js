@@ -241,8 +241,8 @@ function draw() {
 
 function foodCollision() {
     let headx = snake.snakePoints[0].getx() + (snake.BLOCKSIZE/2);
-	let heady = snake.snakePoints[0].gety() + (snake.BLOCKSIZE/2);
-	if  (headx > food.x && headx < food.x + food.BLOCKSIZE) {
+	let heady = snake.snakePoints[0].gety();
+	if  (headx >= food.x && headx <= food.x + food.BLOCKSIZE) {
 		if (heady > food.y && heady < food.y + food.BLOCKSIZE) {
             snake.elongate = true;
 			return true;
