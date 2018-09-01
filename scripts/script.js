@@ -342,4 +342,19 @@ document.addEventListener("touchend", (e) => {
 
 
 
+// Menu
+let menu = document.getElementById("menu");
+let play = document.getElementById("play");
+play.onclick = () => {
+    menu.style.display = "none";
+    document.body.webkitRequestFullscreen();
+    canvas.style.display = "block";
+}
+
+
+
+
+
+
+
 run();
