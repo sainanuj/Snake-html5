@@ -7,7 +7,8 @@ class Snake {
         this.STARTSIZE = 4;
         this.STARTX = 200;
         this.STARTY = 200;
-        this.BLOCKSIZE = 9;
+        this.BLOCKSIZE = 13;
+        this.movement = 5;
         this.snakePoints = new Array();
         this.score = 0;
         for (let i = 0; i < this.STARTSIZE; i++) {
@@ -17,20 +18,21 @@ class Snake {
 
     draw(ctx) {
         ctx.fillStyle = "green";
-        ctx.fillRect(this.snakePoints[0].getx(), this.snakePoints[0].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
+        ctx.fillRect(this.snakePoints[0].getx(), this.snakePoints[0].gety(), this.BLOCKSIZE - 1, this.BLOCKSIZE - 1);
         ctx.fillStyle = "pink";
         for (let i = 1; i < this.snakePoints.length; i++) {
-            ctx.fillRect(this.snakePoints[i].getx(), this.snakePoints[i].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
+            ctx.fillRect(this.snakePoints[i].getx(), this.snakePoints[i].gety(), this.BLOCKSIZE-1, this.BLOCKSIZE - 1);
         }
         ctx.font = "20px Consolas";
+        ctx.fillStyle = "yellow";
         ctx.fillText(this.score, canvas.width - 50, 50);
     }
 
     update() {
         if (this.isMoving) {
-            var first = this.snakePoints[0];
-            var last = this.snakePoints[this.snakePoints.length-1];
-            var newFirst = new Point(first.getx() + (this.dx*this.BLOCKSIZE), first.gety() + (this.dy*this.BLOCKSIZE));
+            let first = this.snakePoints[0];
+            let last = this.snakePoints[this.snakePoints.length-1];
+            let newFirst = new Point(first.getx() + (this.dx*this.BLOCKSIZE), first.gety() + (this.dy*this.BLOCKSIZE));
             for (let i = this.snakePoints.length-1; i > 0; i--) {
                 this.snakePoints[i].setx(this.snakePoints[i-1].getx());
                 this.snakePoints[i].sety(this.snakePoints[i-1].gety());
@@ -92,7 +94,7 @@ class Food {
     constructor() {
         this.x = Math.random() * (canvas.width-100) + 70;
         this.y = Math.random() * (canvas.height-100) + 70;
-        this.BLOCKSIZE = 10;
+        this.BLOCKSIZE = 13;
     }
 
     draw(ctx) {
@@ -268,7 +270,7 @@ function run() {
     setInterval(() => {
         draw();
         update();
-    }, 80);
+    }, 150);
 }
 
 
