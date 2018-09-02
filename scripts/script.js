@@ -245,6 +245,7 @@ function events(e) {
 window.onresize = () => {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
+    food.reset();
     draw();
 }
 
