@@ -40,15 +40,15 @@ html, body {
     margin-left: -30%;
     background-color: white;
     padding: 10px;
-    border-radius: 13px;
+    border-radius: 19px;
     overflow: auto;
 }
 
 .main_menu_elem {
     width: 60%;
     text-align: center;
-    margin: 9% auto;
-    border-radius: 13px;
+    margin: 10% auto;
+    border-radius: 19px;
 }
 
 .main_menu_elem button {
@@ -57,5 +57,5 @@ html, body {
     padding: 10%;
     font-weight: bold;
     font-size: 19px;
-    border-radius: 13px;
+    border-radius: 19px;
 }
