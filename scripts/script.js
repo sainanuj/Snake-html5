@@ -247,7 +247,9 @@ function foodCollision() {
             snake.elongate = true;
 			return true;
 		}
-    } else if (heady >= food.y && heady <= food.y + food.BLOCKSIZE) {
+    }
+    
+    if (heady >= food.y && heady <= food.y + food.BLOCKSIZE) {
         if (headx > food.x && headx < food.x + food.BLOCKSIZE) {
             snake.elongate = true;
             return true;
