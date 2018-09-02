@@ -60,7 +60,9 @@ class Snake {
             }
 
             if (this.suicide()) {
-                dead.play();
+                if (play_sound) {
+                    dead.play();
+                }
                 dead.loop = true;
                 this.isMoving = false;
             }
@@ -94,12 +96,17 @@ class Food {
     constructor() {
         this.x = Math.random() * (canvas.width-100) + 70;
         this.y = Math.random() * (canvas.height-100) + 70;
-        this.BLOCKSIZE = 13;
+        this.BLOCKSIZE = 10;
     }
 
     draw(ctx) {
         ctx.fillStyle = "red";
-        ctx.fillRect(this.x, this.y, this.BLOCKSIZE, this.BLOCKSIZE);
+        // ctx.fillRect(this.x, this.y, this.BLOCKSIZE, this.BLOCKSIZE);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.BLOCKSIZE, 0, 2*Math.PI);
+        ctx.stroke();
+        ctx.fill();
+        ctx.closePath();
     }
 
     update() {
@@ -170,7 +177,9 @@ function events(e) {
         case 13: // Enter key
             if (!snake.isMoving && !pause) {
                 stopAudio(dead);
-                key_press.play();
+                if (play_sound) {
+                    key_press.play();
+                }
                 snake.dx = 1;
                 snake.dy = 0;
                 snake.isMoving = true;
@@ -180,40 +189,52 @@ function events(e) {
             break;
         case 37: // Left arrow key
             if (snake.isMoving && snake.dx != 1) {
-                left.play();
+                if (play_sound) {
+                    left.play();
+                }
                 snake.dx = -1;
                 snake.dy = 0;
             }
             break;
         case 38: // Up arrow key
             if (snake.isMoving && snake.dy != 1) {
-                up.play();
+                if (play_sound) {
+                    up.play();
+                }
                 snake.dy = -1;
                 snake.dx = 0;
             }
             break;
         case 39: // Right arrow key
             if (snake.isMoving && snake.dx != -1) {
-                right.play();
+                if (play_sound) {
+                    right.play();
+                }
                 snake.dx = 1;
                 snake.dy = 0;
             }
             break;
         case 40: // Down arrow key
             if (snake.isMoving && snake.dy != -1) {
-                down.play();
+                if (play_sound) {
+                    down.play();
+                }
                 snake.dy = 1;
                 snake.dx = 0;
             }
             break;
         case 32: // Spacebar
             if (snake.isMoving && !pause) {
-                key_press.play();
+                if (play_sound) {
+                    key_press.play();
+                }
                 dead.loop = true;
                 snake.isMoving = false;
                 pause = true;
             } else if (!snake.isMoving && pause) {
-                key_press.play();
+                if (play_sound) {
+                    key_press.play();
+                }
                 pause = false;
                 snake.isMoving = true;
                 stopAudio(dead);
@@ -240,20 +261,12 @@ function draw() {
 }
 
 function foodCollision() {
-    let headx = snake.snakePoints[0].getx() + (snake.BLOCKSIZE/2);
-	let heady = snake.snakePoints[0].gety();
-	if  (headx >= food.x && headx <= food.x + food.BLOCKSIZE) {
-		if (heady > food.y && heady < food.y + food.BLOCKSIZE) {
-            snake.elongate = true;
-			return true;
-		}
-    }
+    let headx = snake.snakePoints[0].getx(),
+        heady = snake.snakePoints[0].gety();
     
-    if (heady >= food.y && heady <= food.y + food.BLOCKSIZE) {
-        if (headx > food.x && headx < food.x + food.BLOCKSIZE) {
-            snake.elongate = true;
-            return true;
-        }
+    if (headx < food.x && headx+snake.BLOCKSIZE > food.x &&
+    heady < food.y+food.BLOCKSIZE && heady+snake.BLOCKSIZE > food.y) {
+        return true;
     }
 
 	return false;
@@ -262,7 +275,10 @@ function foodCollision() {
 function update() {
     snake.update();
     if (foodCollision()) {
-        eat.play();
+        if (play_sound) {
+            eat.play();
+        }
+        snake.elongate = true;
         food.update();
         snake.score++;
     }
@@ -287,9 +303,12 @@ function run() {
 
 
 
-// Code for recognizing gestures to steer the snake.
+// Code for recognizing touches.
 
 let x1, y1, x2, y2, deltaX, deltaY;
+
+/** Prevent sounds from playing before the game begins */
+let _p = false
 
 document.addEventListener("touchstart", (e) => {
     x1 = e.touches[0].clientX;
@@ -303,9 +322,11 @@ document.addEventListener("touchend", (e) => {
     deltaY = Math.abs(y2 - y1);
 
     if (deltaX > 3 || deltaY > 3) {
-        if (!snake.isMoving) {
+        if (!snake.isMoving && _p) {
             stopAudio(dead);
-            key_press.play();
+            if (play_sound) {
+                key_press.play();
+            }
             snake.reset();
             food.reset();
             snake.isMoving = true;
@@ -315,13 +336,17 @@ document.addEventListener("touchend", (e) => {
     if (deltaX > deltaY) {
         if (x2 > x1) {
             if (snake.dx != -1 && snake.isMoving) {
-                right.play();
+                if (play_sound) {
+                    right.play();
+                }
                 snake.dy = 0;
                 snake.dx = 1;
             }
         } else if (x2 < x1) {
             if (snake.dx != 1 && snake.isMoving) {
-                left.play();
+                if (play_sound) {
+                    left.play();
+                }
                 snake.dy = 0;
                 snake.dx = -1;
             }
@@ -331,19 +356,29 @@ document.addEventListener("touchend", (e) => {
     if (deltaX < deltaY) {
         if (y2 > y1) {
             if (snake.dy != -1 && snake.isMoving) {
-                down.play();
+                if (play_sound) {
+                    down.play();
+                }
                 snake.dx = 0;
                 snake.dy = 1;
             }
         } else if (y2 < y1) {
             if (snake.dy != 1 && snake.isMoving) {
-                up.play();
+                if (play_sound) {
+                    up.play();
+                }
                 snake.dx = 0;
                 snake.dy = -1;
             }
         }
     }
 });
+
+
+// Detect double touch to pause or resume the game
+/** function ddtouch() {
+    
+} */
 
 
 
@@ -353,10 +388,26 @@ document.addEventListener("touchend", (e) => {
 // Menu
 let menu = document.getElementById("menu");
 let play = document.getElementById("play");
+let toggle_sound = document.getElementById("toggle_sound");
+let play_sound = true;
+
 play.onclick = () => {
     menu.style.display = "none";
     document.body.webkitRequestFullscreen();
     canvas.style.display = "block";
+    _p = true;
+}
+
+toggle_sound.onclick = () => {
+    if (toggle_sound.value == "on") {
+        play_sound = false;
+        toggle_sound.value = "off";
+        toggle_sound.innerHTML = "Sound: Off";
+    } else if (toggle_sound.value == "off") {
+        play_sound = true;
+        toggle_sound.value = "on";
+        toggle_sound.innerHTML = "Sound: On";
+    }
 }
 
 
