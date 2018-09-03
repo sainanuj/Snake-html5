@@ -286,12 +286,6 @@ function update() {
 }
 
 function run() {
-    // try {
-    //     dead.play();
-    //     dead.loop = true;
-    // } catch (error) {
-    //     console.log("Error: " + error);
-    // }
     setInterval(() => {
         draw();
         update();
@@ -307,9 +301,8 @@ function run() {
 // Code for recognizing touches.
 
 let x1, y1, x2, y2, deltaX, deltaY;
-
-/** Prevent sounds from playing before the game begins */
-let _p = false
+let d_touch = false, t1 = 0, t2 = 0, delta_t;
+let _p = false  /** Prevent sounds from playing before the game begins */
 
 document.addEventListener("touchstart", (e) => {
     x1 = e.touches[0].clientX;
@@ -317,6 +310,24 @@ document.addEventListener("touchstart", (e) => {
 });
 
 document.addEventListener("touchend", (e) => {
+    if (!d_touch) {
+        t1 = new Date().getTime();
+        d_touch = true;
+    } else {
+        t2 = new Date().getTime();
+        d_touch = false;
+    }
+    delta_t = t2-t1;
+    if (ddtouch()) {
+        if (pause && !snake.isMoving) {
+            pause = false;
+            snake.isMoving = true;
+        } else if (!pause && snake.isMoving) {
+            pause = true;
+            snake.isMoving = false;
+        }
+    }
+
     x2 = e.changedTouches[0].clientX;
     y2 = e.changedTouches[0].clientY;
     deltaX = Math.abs(x2 - x1);
@@ -377,20 +388,33 @@ document.addEventListener("touchend", (e) => {
 
 
 // Detect double touch to pause or resume the game
-/** function ddtouch() {
-    
-} */
-
-
-
+function ddtouch() {
+    if (delta_t > 0 && delta_t < 300) {
+        return true;
+    }
+    return false;
+}
 
 
 
 // Menu
-let menu = document.getElementById("menu");
-let play = document.getElementById("play");
-let toggle_sound = document.getElementById("toggle_sound");
+let menu = document.getElementById("menu"); /** Main menu */
+let play = document.getElementById("play"); /** Play game */
+let toggle_sound = document.getElementById("toggle_sound"); /** Sound: on/off button */
 let play_sound = true;
+let btm = document.getElementById("btm");   /** back to menu */
+let how_to_play = document.getElementById("htp");   /** how to play - instructions */
+let htp_main = document.getElementById("htp_main"); /** 'How to play' button in the main menu */
+
+htp_main.onclick = () => {
+    menu.style.display = "none";
+    how_to_play.style.display = "block";
+}
+
+btm.onclick = () => {
+    how_to_play.style.display = "none";
+    menu.style.display = "block";
+}
 
 play.onclick = () => {
     menu.style.display = "none";
