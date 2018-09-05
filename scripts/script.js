@@ -310,23 +310,23 @@ document.addEventListener("touchstart", (e) => {
 });
 
 document.addEventListener("touchend", (e) => {
-    if (!d_touch) {
-        t1 = new Date().getTime();
-        d_touch = true;
-    } else {
-        t2 = new Date().getTime();
-        d_touch = false;
-    }
-    delta_t = t2-t1;
-    if (ddtouch()) {
-        if (pause && !snake.isMoving) {
-            pause = false;
-            snake.isMoving = true;
-        } else if (!pause && snake.isMoving) {
-            pause = true;
-            snake.isMoving = false;
-        }
-    }
+    // if (!d_touch) {
+    //     t1 = new Date().getTime();
+    //     d_touch = true;
+    // } else {
+    //     t2 = new Date().getTime();
+    //     d_touch = false;
+    // }
+    // delta_t = t2-t1;
+    // if (ddtouch()) {
+    //     if (pause && !snake.isMoving) {
+    //         pause = false;
+    //         snake.isMoving = true;
+    //     } else if (!pause && snake.isMoving) {
+    //         pause = true;
+    //         snake.isMoving = false;
+    //     }
+    // }
 
     x2 = e.changedTouches[0].clientX;
     y2 = e.changedTouches[0].clientY;
@@ -388,12 +388,12 @@ document.addEventListener("touchend", (e) => {
 
 
 // Detect double touch to pause or resume the game
-function ddtouch() {
-    if (delta_t > 0 && delta_t < 300) {
-        return true;
-    }
-    return false;
-}
+// function ddtouch() {
+//     if (delta_t > 0 && delta_t < 300) {
+//         return true;
+//     }
+//     return false;
+// }
 
 
 
