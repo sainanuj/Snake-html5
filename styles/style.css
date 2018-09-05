@@ -93,13 +93,13 @@ html, body {
 
 .back_to_menu {
     display: block;
-    width: 30%;
+    text-align: center;
     margin: 0 auto;
 }
 
 .back_to_menu button {
     border-radius: 13%;
-    width: 70%;
+    width: 20%;
     background-color: white;
 }
 
