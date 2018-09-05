@@ -144,6 +144,7 @@ let context = canvas.getContext("2d");
 let snake = new Snake();
 let food = new Food();
 let pause = false;
+let fps = 150; // Frames per second
 
 let dead = new Audio();
 let eat = new Audio();
@@ -289,7 +290,7 @@ function run() {
     setInterval(() => {
         draw();
         update();
-    }, 150);
+    }, fps);
 }
 
 
@@ -405,6 +406,27 @@ let play_sound = true;
 let btm = document.getElementById("btm");   /** back to menu */
 let how_to_play = document.getElementById("htp");   /** how to play - instructions */
 let htp_main = document.getElementById("htp_main"); /** 'How to play' button in the main menu */
+let level = document.getElementById("level");
+
+level.onclick = () => {
+    switch (level.value) {
+        case "1":
+            fps = 100;
+            level.value = "2";
+            level.innerHTML = "Level: Medium";
+            break;
+        case "2":
+            fps = 50;
+            level.value = "3";
+            level.innerHTML = "Level: Hard";
+            break;
+        case "3":
+            fps = 150;
+            level.value = "1";
+            level.innerHTML = "Level: Easy";
+            break;
+    }
+}
 
 htp_main.onclick = () => {
     menu.style.display = "none";
@@ -421,6 +443,7 @@ play.onclick = () => {
     document.body.webkitRequestFullscreen();
     canvas.style.display = "block";
     _p = true;
+    console.log(fps);
 }
 
 toggle_sound.onclick = () => {

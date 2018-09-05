@@ -13,7 +13,11 @@
     
     <div class="toast">This is a toast.</div>
 
+    <!-- Menu -->
     <div class="main_menu" id="menu">
+        <div class="game_title">
+            <p>Classic Snake</p>
+        </div>
         <div class="main_menu_elem play" id="play">
             <button type="button" autofocus>Play</button>
         </div>
@@ -21,7 +25,7 @@
             <button type="toggle" id="toggle_sound" value="on">Sound: On</button>
         </div>
         <div class="main_menu_elem level">
-            <button type="button">Level</button>
+            <button type="button" id="level" value="1">Level: Easy</button>
         </div>
         <div class="main_menu_elem howtoplay">
             <button type="button" id="htp_main">How to play</button>
@@ -31,6 +35,7 @@
         </div>
     </div>
 
+    <!-- How to play -->
     <div class="how_to_play" id="htp">
         <p>HOW TO PLAY</p>
         <p>Swipe LEFT, RIGHT, UP or DOWN to steer the snake.
