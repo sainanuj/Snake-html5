@@ -407,6 +407,32 @@ let btm = document.getElementById("btm");   /** back to menu */
 let how_to_play = document.getElementById("htp");   /** how to play - instructions */
 let htp_main = document.getElementById("htp_main"); /** 'How to play' button in the main menu */
 let level = document.getElementById("level");
+let about = document.getElementById("about");
+let about_content = document.getElementById("about_content");
+let back_about = document.getElementById("back_about");
+
+back_about.onclick = () => {
+    about_content.style.display = "none";
+    menu.style.display = "block";
+}
+
+htp_main.onclick = () => {
+    menu.style.display = "none";
+    how_to_play.style.display = "block";
+}
+
+btm.onclick = () => {
+    how_to_play.style.display = "none";
+    menu.style.display = "block";
+}
+
+play.onclick = () => {
+    menu.style.display = "none";
+    document.body.webkitRequestFullscreen();
+    canvas.style.display = "block";
+    _p = true;
+    console.log(fps);
+}
 
 level.onclick = () => {
     switch (level.value) {
@@ -428,22 +454,9 @@ level.onclick = () => {
     }
 }
 
-htp_main.onclick = () => {
+about.onclick = () => {
     menu.style.display = "none";
-    how_to_play.style.display = "block";
-}
-
-btm.onclick = () => {
-    how_to_play.style.display = "none";
-    menu.style.display = "block";
-}
-
-play.onclick = () => {
-    menu.style.display = "none";
-    document.body.webkitRequestFullscreen();
-    canvas.style.display = "block";
-    _p = true;
-    console.log(fps);
+    about_content.style.display = "block";
 }
 
 toggle_sound.onclick = () => {

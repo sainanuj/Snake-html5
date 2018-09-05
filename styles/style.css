@@ -110,3 +110,55 @@ html, body {
     padding: 0 20%;
     border-radius: 13%;
 }
+
+/* About */
+.about_content {
+    display: none;
+    background-color: black;
+    color: white;
+    margin: 20% auto;
+    position: absolute;
+}
+
+.about_content p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.about_content .heading {
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 10%;
+}
+
+.about_content .content {
+    display: block;
+    margin: 0% 10%;
+}
+
+.contact_info {
+    margin: 15%;
+    text-align: center;
+}
+
+.contact_info h3 {
+    display: block;
+    font-size: 19px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 10% auto;
+}
+
+.via {
+    text-align: center;
+    padding: 3%;
+}
+
+a:link {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.bold {
+    font-weight: bold;
+}
