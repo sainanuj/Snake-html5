@@ -18,10 +18,10 @@ class Snake {
 
     draw(ctx) {
         ctx.fillStyle = "green";
-        ctx.fillRect(this.snakePoints[0].getx(), this.snakePoints[0].gety(), this.BLOCKSIZE - 1, this.BLOCKSIZE - 1);
+        ctx.fillRect(this.snakePoints[0].getx(), this.snakePoints[0].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
         ctx.fillStyle = "pink";
         for (let i = 1; i < this.snakePoints.length; i++) {
-            ctx.fillRect(this.snakePoints[i].getx(), this.snakePoints[i].gety(), this.BLOCKSIZE-1, this.BLOCKSIZE - 1);
+            ctx.fillRect(this.snakePoints[i].getx(), this.snakePoints[i].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
         }
         ctx.font = "20px Consolas";
         ctx.fillStyle = "yellow";
