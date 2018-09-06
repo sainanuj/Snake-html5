@@ -264,14 +264,60 @@ function draw() {
 
 function foodCollision() {
     let headx = snake.snakePoints[0].getx(),
-        heady = snake.snakePoints[0].gety();
+        heady = snake.snakePoints[0].gety(),
+        foodx = food.x,
+        foody = food.y;
     
-    if (headx < food.x && headx+snake.BLOCKSIZE > food.x &&
-    heady < food.y+food.BLOCKSIZE && heady+snake.BLOCKSIZE > food.y) {
-        return true;
+    if (snake.dx == 1) {
+        if (headx + (snake.BLOCKSIZE - 3) >= foodx - food.BLOCKSIZE &&
+        headx <= foodx + food.BLOCKSIZE) {
+            if (heady + (snake.BLOCKSIZE - 3) > foody && heady < foody + food.BLOCKSIZE) {
+                return true;
+            } else if (heady + (snake.BLOCKSIZE) > foody - food.BLOCKSIZE &&
+            heady + (snake.BLOCKSIZE - 3) < foody + food.BLOCKSIZE) {
+                return true;
+            }
+        }
     }
 
-	return false;
+    if (snake.dx == -1) {
+        if (headx + 3 >= foodx &&
+            headx <= foodx + food.BLOCKSIZE) {
+            if (heady + (snake.BLOCKSIZE - 3) > foody && heady < foody + food.BLOCKSIZE) {
+                return true;
+            } else if (heady + (snake.BLOCKSIZE) > foody - food.BLOCKSIZE &&
+            heady + (snake.BLOCKSIZE - 3) < foody + food.BLOCKSIZE) {
+                return true;
+            }
+        }
+            
+    }
+
+    if (snake.dy == 1) {
+        if (heady + (snake.BLOCKSIZE - 3) >= foody - food.BLOCKSIZE &&
+        heady <= foody + food.BLOCKSIZE) {
+            if (headx + (snake.BLOCKSIZE - 3) > foodx && headx < foodx + food.BLOCKSIZE) {
+                return true;
+            } else if (headx + (snake.BLOCKSIZE) > foodx - food.BLOCKSIZE &&
+            headx + (snake.BLOCKSIZE - 3) < foodx + food.BLOCKSIZE) {
+                return true;
+            }
+        }
+    }
+
+    if (snake.dy == -1) {
+        if (heady + 3 >= foody &&
+            heady <= foody + food.BLOCKSIZE) {
+            if (headx + (snake.BLOCKSIZE - 3) > foodx && headx < foodx + food.BLOCKSIZE) {
+                return true;
+            } else if (headx + (snake.BLOCKSIZE) > foodx - food.BLOCKSIZE &&
+            headx + (snake.BLOCKSIZE - 3) < foodx + food.BLOCKSIZE) {
+                return true;
+            }
+        }
+    }
+
+    return false;
 }
 
 function update() {
