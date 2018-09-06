@@ -163,3 +163,24 @@ a:link, a:visited {
 .bold {
     font-weight: bold;
 }
+
+/* Game over */
+.game_over {
+    text-align: center;
+    display: none;
+    background-color: black;
+    color: white;
+    margin: 50% auto;
+    position: absolute;
+}
+
+.game_over .heading {
+    color: yellow;
+    font-size: 40px;
+    margin-bottom: 10%;
+}
+
+.score {
+    padding-bottom: 10%;
+    font-size: 40px;
+}

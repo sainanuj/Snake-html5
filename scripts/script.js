@@ -60,6 +60,10 @@ class Snake {
             }
 
             if (this.suicide()) {
+                _score.innerHTML = this.score;
+                gameover = true;
+                canvas.style.display = "none";
+                game_over.style.display = "block";
                 if (play_sound) {
                     dead.play();
                 }
@@ -250,18 +254,6 @@ window.onresize = () => {
     draw();
 }
 
-function draw() {
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    snake.draw(context);
-    food.draw(context);
-
-    if (pause) {
-        context.fillStyle = "white";
-        context.font = "40px Consolas";
-        context.fillText("PAUSED", (canvas.width/2)-59, (canvas.height/2)-10);
-    }
-}
-
 function foodCollision() {
     let headx = snake.snakePoints[0].getx(),
         heady = snake.snakePoints[0].gety(),
@@ -318,6 +310,18 @@ function foodCollision() {
     }
 
     return false;
+}
+
+function draw() {
+    context.clearRect(0, 0, canvas.width, canvas.height);
+    snake.draw(context);
+    food.draw(context);
+
+    if (pause) {
+        context.fillStyle = "white";
+        context.font = "40px Consolas";
+        context.fillText("PAUSED", (canvas.width/2)-59, (canvas.height/2)-10);
+    }
 }
 
 function update() {
@@ -456,6 +460,19 @@ let level = document.getElementById("level");
 let about = document.getElementById("about");
 let about_content = document.getElementById("about_content");
 let back_about = document.getElementById("back_about");
+let game_over = document.getElementById("game_over");
+let back_score = document.getElementById("back_score");
+let _score = document.getElementById("_score");
+let gameover = false;
+
+back_score.onclick = () => {
+    gameover = false;
+    game_over.style.display = "none";
+    menu.style.display = "block";
+    stopAudio(dead);
+    snake.reset();
+    food.reset();
+}
 
 back_about.onclick = () => {
     about_content.style.display = "none";
