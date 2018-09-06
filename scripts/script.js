@@ -60,6 +60,7 @@ class Snake {
             }
 
             if (this.suicide()) {
+                // document.exitFullscreen();
                 _score.innerHTML = this.score;
                 gameover = true;
                 canvas.style.display = "none";
@@ -178,72 +179,74 @@ canvas.height = window.innerHeight;
 document.addEventListener("keydown", events, false);
 
 function events(e) {
-    switch (e.keyCode) {
-        case 13: // Enter key
-            if (!snake.isMoving && !pause) {
-                stopAudio(dead);
-                if (play_sound) {
-                    key_press.play();
+    if (!gameover) {
+        switch (e.keyCode) {
+            case 13: // Enter key
+                if (!snake.isMoving && !pause) {
+                    stopAudio(dead);
+                    if (play_sound) {
+                        key_press.play();
+                    }
+                    snake.dx = 1;
+                    snake.dy = 0;
+                    snake.isMoving = true;
+                    snake.reset();
+                    food.reset();
                 }
-                snake.dx = 1;
-                snake.dy = 0;
-                snake.isMoving = true;
-                snake.reset();
-                food.reset();
-            }
-            break;
-        case 37: // Left arrow key
-            if (snake.isMoving && snake.dx != 1) {
-                if (play_sound) {
-                    left.play();
+                break;
+            case 37: // Left arrow key
+                if (snake.isMoving && snake.dx != 1) {
+                    if (play_sound) {
+                        left.play();
+                    }
+                    snake.dx = -1;
+                    snake.dy = 0;
                 }
-                snake.dx = -1;
-                snake.dy = 0;
-            }
-            break;
-        case 38: // Up arrow key
-            if (snake.isMoving && snake.dy != 1) {
-                if (play_sound) {
-                    up.play();
+                break;
+            case 38: // Up arrow key
+                if (snake.isMoving && snake.dy != 1) {
+                    if (play_sound) {
+                        up.play();
+                    }
+                    snake.dy = -1;
+                    snake.dx = 0;
                 }
-                snake.dy = -1;
-                snake.dx = 0;
-            }
-            break;
-        case 39: // Right arrow key
-            if (snake.isMoving && snake.dx != -1) {
-                if (play_sound) {
-                    right.play();
+                break;
+            case 39: // Right arrow key
+                if (snake.isMoving && snake.dx != -1) {
+                    if (play_sound) {
+                        right.play();
+                    }
+                    snake.dx = 1;
+                    snake.dy = 0;
                 }
-                snake.dx = 1;
-                snake.dy = 0;
-            }
-            break;
-        case 40: // Down arrow key
-            if (snake.isMoving && snake.dy != -1) {
-                if (play_sound) {
-                    down.play();
+                break;
+            case 40: // Down arrow key
+                if (snake.isMoving && snake.dy != -1) {
+                    if (play_sound) {
+                        down.play();
+                    }
+                    snake.dy = 1;
+                    snake.dx = 0;
                 }
-                snake.dy = 1;
-                snake.dx = 0;
-            }
-            break;
-        case 32: // Spacebar
-            if (snake.isMoving && !pause) {
-                if (play_sound) {
-                    key_press.play();
+                break;
+            case 32: // Spacebar
+                if (snake.isMoving && !pause) {
+                    if (play_sound) {
+                        key_press.play();
+                    }
+                    dead.loop = true;
+                    snake.isMoving = false;
+                    pause = true;
+                } else if (!snake.isMoving && pause) {
+                    if (play_sound) {
+                        key_press.play();
+                    }
+                    pause = false;
+                    snake.isMoving = true;
+                    stopAudio(dead);
                 }
-                dead.loop = true;
-                snake.isMoving = false;
-                pause = true;
-            } else if (!snake.isMoving && pause) {
-                if (play_sound) {
-                    key_press.play();
-                }
-                pause = false;
-                snake.isMoving = true;
-                stopAudio(dead);
-            }
+        }
     }
 }
 
@@ -385,7 +388,7 @@ document.addEventListener("touchend", (e) => {
     deltaY = Math.abs(y2 - y1);
 
     if (deltaX > 3 || deltaY > 3) {
-        if (!snake.isMoving && _p) {
+        if (!snake.isMoving && _p && !gameover) {
             stopAudio(dead);
             if (play_sound) {
                 key_press.play();
@@ -396,42 +399,44 @@ document.addEventListener("touchend", (e) => {
         }
     }
 
-    if (deltaX > deltaY) {
-        if (x2 > x1) {
-            if (snake.dx != -1 && snake.isMoving) {
-                if (play_sound) {
-                    right.play();
+    if (!gameover) {
+        if (deltaX > deltaY) {
+            if (x2 > x1) {
+                if (snake.dx != -1 && snake.isMoving) {
+                    if (play_sound) {
+                        right.play();
+                    }
+                    snake.dy = 0;
+                    snake.dx = 1;
                 }
-                snake.dy = 0;
-                snake.dx = 1;
-            }
-        } else if (x2 < x1) {
-            if (snake.dx != 1 && snake.isMoving) {
-                if (play_sound) {
-                    left.play();
+            } else if (x2 < x1) {
+                if (snake.dx != 1 && snake.isMoving) {
+                    if (play_sound) {
+                        left.play();
+                    }
+                    snake.dy = 0;
+                    snake.dx = -1;
                 }
-                snake.dy = 0;
-                snake.dx = -1;
             }
         }
-    }
-
-    if (deltaX < deltaY) {
-        if (y2 > y1) {
-            if (snake.dy != -1 && snake.isMoving) {
-                if (play_sound) {
-                    down.play();
+    
+        if (deltaX < deltaY) {
+            if (y2 > y1) {
+                if (snake.dy != -1 && snake.isMoving) {
+                    if (play_sound) {
+                        down.play();
+                    }
+                    snake.dx = 0;
+                    snake.dy = 1;
                 }
-                snake.dx = 0;
-                snake.dy = 1;
-            }
-        } else if (y2 < y1) {
-            if (snake.dy != 1 && snake.isMoving) {
-                if (play_sound) {
-                    up.play();
+            } else if (y2 < y1) {
+                if (snake.dy != 1 && snake.isMoving) {
+                    if (play_sound) {
+                        up.play();
+                    }
+                    snake.dx = 0;
+                    snake.dy = -1;
                 }
-                snake.dx = 0;
-                snake.dy = -1;
             }
         }
     }
@@ -466,7 +471,6 @@ let _score = document.getElementById("_score");
 let gameover = false;
 
 back_score.onclick = () => {
-    gameover = false;
     game_over.style.display = "none";
     menu.style.display = "block";
     stopAudio(dead);
@@ -490,11 +494,11 @@ btm.onclick = () => {
 }
 
 play.onclick = () => {
+    gameover = false;
     menu.style.display = "none";
-    document.body.webkitRequestFullscreen();
+    // document.body.webkitRequestFullscreen();
     canvas.style.display = "block";
     _p = true;
-    console.log(fps);
 }
 
 level.onclick = () => {
