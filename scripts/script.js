@@ -60,6 +60,7 @@ class Snake {
             }
 
             if (this.suicide()) {
+                show_game_over_toast();
                 // document.exitFullscreen();
                 _score.innerHTML = this.score;
                 gameover = true;
@@ -469,6 +470,14 @@ let game_over = document.getElementById("game_over");
 let back_score = document.getElementById("back_score");
 let _score = document.getElementById("_score");
 let gameover = false;
+let game_over_toast = document.getElementById("g_o_t");
+
+function show_game_over_toast() {
+    game_over_toast.style.display = "block";
+    setTimeout(() => {
+        game_over_toast.style.display = "none";
+    }, 1500);
+}
 
 back_score.onclick = () => {
     game_over.style.display = "none";
