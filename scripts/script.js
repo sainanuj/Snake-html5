@@ -60,6 +60,7 @@ class Snake {
             }
 
             if (this.suicide()) {
+                toggleFullscreen();
                 show_game_over_toast();
                 // document.exitFullscreen();
                 _score.innerHTML = this.score;
@@ -365,24 +366,6 @@ document.addEventListener("touchstart", (e) => {
 });
 
 document.addEventListener("touchend", (e) => {
-    // if (!d_touch) {
-    //     t1 = new Date().getTime();
-    //     d_touch = true;
-    // } else {
-    //     t2 = new Date().getTime();
-    //     d_touch = false;
-    // }
-    // delta_t = t2-t1;
-    // if (ddtouch()) {
-    //     if (pause && !snake.isMoving) {
-    //         pause = false;
-    //         snake.isMoving = true;
-    //     } else if (!pause && snake.isMoving) {
-    //         pause = true;
-    //         snake.isMoving = false;
-    //     }
-    // }
-
     x2 = e.changedTouches[0].clientX;
     y2 = e.changedTouches[0].clientY;
     deltaX = Math.abs(x2 - x1);
@@ -444,14 +427,31 @@ document.addEventListener("touchend", (e) => {
 });
 
 
-// Detect double touch to pause or resume the game
-// function ddtouch() {
-//     if (delta_t > 0 && delta_t < 300) {
-//         return true;
-//     }
-//     return false;
-// }
-
+function toggleFullscreen(elem) {
+    elem = elem || document.documentElement;
+    if (!document.fullscreenElement && !document.mozFullScreenElement &&
+      !document.webkitFullscreenElement && !document.msFullscreenElement) {
+      if (elem.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if (elem.msRequestFullscreen) {
+        elem.msRequestFullscreen();
+      } else if (elem.mozRequestFullScreen) {
+        elem.mozRequestFullScreen();
+      } else if (elem.webkitRequestFullscreen) {
+        elem.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      }
+    }
+  }
 
 
 // Menu
@@ -505,7 +505,7 @@ btm.onclick = () => {
 play.onclick = () => {
     gameover = false;
     menu.style.display = "none";
-    // document.body.webkitRequestFullscreen();
+    toggleFullscreen();
     canvas.style.display = "block";
     _p = true;
 }
