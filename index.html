@@ -311,7 +311,6 @@
                     this.snakePoints[0] = newFirst;
                     
                     if (this.elongate) {
-                        // this.snakePoints.push(last);
                         this.snakePoints.push(new Point(last.getx() + (this.dx*this.BLOCKSIZE), last.gety() + (this.dy*this.BLOCKSIZE)))
                         this.elongate = false;
                     }
@@ -359,7 +358,7 @@
             suicide() {
                 var headx = this.snakePoints[0].getx() + (this.BLOCKSIZE / 2);
                 var heady = this.snakePoints[0].gety() + (this.BLOCKSIZE / 2);
-                for (let i = 1; i < this.snakePoints.length; i++) {
+                for (let i = 2; i < this.snakePoints.length; i++) {
                     if (headx > this.snakePoints[i].getx() && headx < this.snakePoints[i].getx() + this.BLOCKSIZE) {
                         if (heady > this.snakePoints[i].gety() && heady < this.snakePoints[i].gety() + this.BLOCKSIZE) {
                             return true;
@@ -422,7 +421,6 @@
         let snake = new Snake();
         let food = new Food();
         let pause = false;
-        let fps = 30; // Frames per second
 
         let dead = new Audio();
         let eat = new Audio();
@@ -612,17 +610,35 @@
             }
         }
 
-        function run() {
-            setInterval(() => {
-                draw();
-                update();
-            }, fps);
+        function main() {
+            draw();
+            update();
         }
 
+        var FPS;
 
+        let frameCount = 0;
+        let fpsInterval, startTime, now, then, elasped;
 
+        function startAnimating(fps) {
+            fpsInterval = 1000/fps;
+            then = Date.now();
+            // then = window.performance.now();
+            startTime = then;
+            animate();
+        }
 
+        function animate() {
+            requestAnimationFrame(animate);
+            now = new Date().getTime();
+            elapsed = now - then;
+            if (elapsed > fpsInterval) {
+                then = now - (elapsed % fpsInterval);
+                main();
+            }
+        }
 
+        
 
 
         // Code for recognizing touches.
@@ -733,7 +749,7 @@
         let btm = document.getElementById("btm");   /** back to menu */
         let how_to_play = document.getElementById("htp");   /** how to play - instructions */
         let htp_main = document.getElementById("htp_main"); /** 'How to play' button in the main menu */
-        let level = document.getElementById("level");
+        var level = document.getElementById("level");
         let about = document.getElementById("about");
         let about_content = document.getElementById("about_content");
         let back_about = document.getElementById("back_about");
@@ -774,6 +790,15 @@
         }
 
         play.onclick = () => {
+            switch (level.value) {
+                case "1":
+                    FPS = 15;
+                case "2":
+                    FPS = 20;
+                case "3":
+                    FPS = 30;
+            }
+            startAnimating(FPS);
             gameover = false;
             menu.style.display = "none";
             toggleFullscreen();
@@ -784,17 +809,17 @@
         level.onclick = () => {
             switch (level.value) {
                 case "1":
-                    fps = 30;
+                    FPS = 20;
                     level.value = "2";
                     level.innerHTML = "Level: Medium";
                     break;
                 case "2":
-                    fps = 30;
+                    FPS = 30;
                     level.value = "3";
                     level.innerHTML = "Level: Hard";
                     break;
                 case "3":
-                    fps = 30;
+                    FPS = 15;
                     level.value = "1";
                     level.innerHTML = "Level: Easy";
                     break;
@@ -818,7 +843,6 @@
             }
         }
 
-        run();
     </script>
 </head>
 </html>
