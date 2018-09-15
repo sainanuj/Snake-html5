@@ -422,7 +422,7 @@
         let snake = new Snake();
         let food = new Food();
         let pause = false;
-        let fps = 150; // Frames per second
+        let fps = 30; // Frames per second
 
         let dead = new Audio();
         let eat = new Audio();
@@ -784,17 +784,17 @@
         level.onclick = () => {
             switch (level.value) {
                 case "1":
-                    fps = 100;
+                    fps = 30;
                     level.value = "2";
                     level.innerHTML = "Level: Medium";
                     break;
                 case "2":
-                    fps = 50;
+                    fps = 30;
                     level.value = "3";
                     level.innerHTML = "Level: Hard";
                     break;
                 case "3":
-                    fps = 150;
+                    fps = 30;
                     level.value = "1";
                     level.innerHTML = "Level: Easy";
                     break;
