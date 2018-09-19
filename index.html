@@ -316,23 +316,24 @@
                     }
 
                     // Move through walls.
-                    if (this.snakePoints[0].getx() > canvas.width-this.BLOCKSIZE && this.dx == 1) {
-                        this.snakePoints[0].setx(-this.BLOCKSIZE);
+                    if (this.snakePoints[0].getx() >= canvas.width-this.BLOCKSIZE && this.dx == 1) {
+                        // this.snakePoints[0].setx(-this.BLOCKSIZE);
+						this.snakePoints[0].setx(0);
                     }
-                    if (this.snakePoints[0].getx() < 0 && this.dx == -1) {
+                    if (this.snakePoints[0].getx() <= 0 && this.dx == -1) {
                         this.snakePoints[0].setx(canvas.width);
                     }
-                    if (this.snakePoints[0].gety() > canvas.height-this.BLOCKSIZE && this.dy == 1) {
-                        this.snakePoints[0].sety(-this.BLOCKSIZE);
+                    if (this.snakePoints[0].gety() >= canvas.height-this.BLOCKSIZE && this.dy == 1) {
+                        // this.snakePoints[0].sety(-this.BLOCKSIZE);
+						this.snakePoints[0].sety(0);
                     }
-                    if (this.snakePoints[0].gety() < 0 && this.dy == -1) {
+                    if (this.snakePoints[0].gety() <= 0 && this.dy == -1) {
                         this.snakePoints[0].sety(canvas.height);
                     }
 
                     if (this.suicide()) {
                         toggleFullscreen();
                         show_game_over_toast();
-                        // document.exitFullscreen();
                         _score.innerHTML = this.score;
                         gameover = true;
                         canvas.style.display = "none";
@@ -792,13 +793,13 @@
         play.onclick = () => {
             switch (level.value) {
                 case "1":
-                    FPS = 15;
+                    FPS = 10;
                     break;
                 case "2":
-                    FPS = 20;
+                    FPS = 15;
                     break;
                 case "3":
-                    FPS = 30;
+                    FPS = 20;
                     break;
             }
             startAnimating(FPS);
@@ -812,17 +813,17 @@
         level.onclick = () => {
             switch (level.value) {
                 case "1":
-                    FPS = 20;
+                    FPS = 15;
                     level.value = "2";
                     level.innerHTML = "Level: Medium";
                     break;
                 case "2":
-                    FPS = 30;
+                    FPS = 20;
                     level.value = "3";
                     level.innerHTML = "Level: Hard";
                     break;
                 case "3":
-                    FPS = 15;
+                    FPS = 10;
                     level.value = "1";
                     level.innerHTML = "Level: Easy";
                     break;
