@@ -290,7 +290,7 @@
             draw(ctx) {
                 ctx.fillStyle = "green";
                 ctx.fillRect(this.snakePoints[0].getx(), this.snakePoints[0].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
-                ctx.fillStyle = "pink";
+                ctx.fillStyle = "hotpink";
                 for (let i = 1; i < this.snakePoints.length; i++) {
                     ctx.fillRect(this.snakePoints[i].getx(), this.snakePoints[i].gety(), this.BLOCKSIZE, this.BLOCKSIZE);
                 }
@@ -416,6 +416,24 @@
                 return this.y;
             }
         }
+		
+		class Obstacle {
+			constructor(x, y, width, height) {
+				this.x = x;
+				this.y = y;
+				this.width = width;
+				this.height = height;
+			}
+			
+			draw(ctx) {
+				ctx.fillStyle = "teal";
+				ctx.fillRect(x, y, width, height);
+			}
+			
+			colliding(snake) {
+				
+			}
+		}
 
         let canvas = document.getElementById("myCanvas");
         let context = canvas.getContext("2d");
