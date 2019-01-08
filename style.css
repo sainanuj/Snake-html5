@@ -1,0 +1,186 @@
+* {
+    padding: 0;
+    margin: 0;
+    background: black;
+ }
+
+html, body {
+    overflow: hidden;
+}
+
+#myCanvas {
+    display: none;
+    background-color: black;
+}
+
+
+/* Toast */
+.toast {
+    display: none;
+    color: yellow;
+    width: 200px;
+    height: 5%;
+    position: absolute;
+    left: 47%;
+    margin-left: -100px;
+    bottom: 20%;
+    background-color: #383838;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 20px;
+}
+
+
+/* Menu */
+.main_menu {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    margin: auto;
+    background-color: white;
+    padding: 10% 0;
+    overflow: auto;
+}
+
+.game_title p {
+    background-color: white;
+    font-size: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.main_menu_elem {
+    width: 60%;
+    text-align: center;
+    margin: 7% auto;
+    border-radius: 19px;
+}
+
+.main_menu_elem button {
+    width: 100%;
+    color: white;
+    padding: 10% 7%;
+    font-weight: bold;
+    font-size: 19px;
+    border-radius: 19px;
+}
+
+
+/* How to play */
+.how_to_play {
+    display: none;
+    background-color: black;
+    margin: 50% auto;
+    text-align: center;
+}
+
+.how_to_play p:nth-child(1) {
+    color: yellow;
+    font-size: 25px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.how_to_play p:nth-child(2) {
+    color: white;
+    padding: 10%;
+    font-size: 19px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.back_to_menu {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.back_to_menu button {
+    border-radius: 13%;
+    width: 20%;
+    background-color: white;
+}
+
+.back_to_menu img {
+    width: 50%;
+    height: 10%;
+    background-color: white;
+    padding: 0 20%;
+    border-radius: 13%;
+}
+
+/* About */
+.about_content {
+    display: none;
+    background-color: black;
+    color: white;
+    margin: 20% auto;
+    position: absolute;
+}
+
+.about_content p {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.about_content .heading {
+    color: yellow;
+    text-align: center;
+    font-size: 40px;
+    margin-bottom: 10%;
+}
+
+.about_content .content {
+    display: block;
+    margin: 0% 10%;
+}
+
+.contact_info {
+    margin: 15%;
+    text-align: center;
+}
+
+.contact_info h3 {
+    display: block;
+    font-size: 19px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin: 10% auto;
+}
+
+.via {
+    text-align: center;
+    padding: 3%;
+}
+
+a:link, a:visited {
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    margin: 5px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+/* Game over */
+.game_over {
+    text-align: center;
+    display: none;
+    background-color: black;
+    color: white;
+    margin: 30% auto;
+    position: absolute;
+}
+
+.game_over .heading {
+    color: yellow;
+    font-size: 40px;
+    margin-bottom: 10%;
+}
+
+.score {
+    padding-bottom: 10%;
+    font-size: 40px;
+}
